@@ -1,0 +1,75 @@
+{% extends 'alunos/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-primary text-white">
+
+            <h3 class="mb-0 fw-bold">
+
+                <i class="bi bi-shield-check"></i>
+                Validação do QR Code
+
+            </h3>
+
+        </div>
+
+        <div class="card-body text-center p-4">
+
+            <h4 class="fw-bold">
+                {{ qrcode.aluno.nome }}
+            </h4>
+
+            <p class="mb-4">
+
+                Pacote:
+                <strong>{{ qrcode.pacote.acessos_restantes }}/{{ qrcode.pacote.total_acessos }}</strong>
+                acessos restantes
+
+            </p>
+
+            <img
+                src="{{ qrcode.imagem.url }}"
+                class="img-fluid mb-4"
+                style="max-width:300px;"
+                alt="QR Code">
+
+            <hr>
+
+            {% if sucesso %}
+
+                <div class="alert alert-success">
+
+                    <i class="bi bi-check-circle-fill"></i>
+                    {{ mensagem }}
+
+                </div>
+
+            {% else %}
+
+                <div class="alert alert-danger">
+
+                    <i class="bi bi-x-circle-fill"></i>
+                    {{ mensagem }}
+
+                </div>
+
+            {% endif %}
+
+            <a href="{% url 'lista_pacotes' %}" class="btn btn-primary mt-3">
+
+                <i class="bi bi-arrow-left"></i>
+                Voltar
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

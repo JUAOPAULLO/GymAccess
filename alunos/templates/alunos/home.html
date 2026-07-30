@@ -1,0 +1,187 @@
+{% extends 'alunos/base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4 fw-bold">
+    Dashboard
+</h2>
+
+<div class="row g-4">
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center py-4">
+
+                <i class="bi bi-people-fill display-5 text-primary"></i>
+
+                <h5 class="mt-3">
+                    Total de Alunos
+                </h5>
+
+                <h2 class="fw-bold">
+                    {{ total_alunos }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center py-4">
+
+                <i class="bi bi-box-seam display-5 text-success"></i>
+
+                <h5 class="mt-3">
+                    Pacotes Ativos
+                </h5>
+
+                <h2 class="fw-bold">
+                    {{ pacotes_ativos }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center py-4">
+
+                <i class="bi bi-qr-code display-5 text-warning"></i>
+
+                <h5 class="mt-3">
+                    QR Codes
+                </h5>
+
+                <h2 class="fw-bold">
+                    {{ qrcodes_ativos }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center py-4">
+
+                <i class="bi bi-door-open-fill display-5 text-danger"></i>
+
+                <h5 class="mt-3">
+                    Entradas Registradas
+                </h5>
+
+                <h2 class="fw-bold">
+                    {{ total_registros }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card shadow-sm mt-5">
+
+    <div class="card-header bg-dark text-white">
+
+        <h5 class="mb-0">
+            Últimos Acessos
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Data/Hora</th>
+                        <th>Aluno</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for registro in ultimos_registros %}
+
+                    <tr>
+
+                        <td>
+                            {{ registro.data_hora|date:"d/m/Y H:i" }}
+                        </td>
+
+                        <td>
+                            {{ registro.aluno.nome }}
+                        </td>
+
+                        <td>
+
+                            {% if registro.autorizado %}
+
+                                <span class="badge bg-success">
+                                    Liberado
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-danger">
+                                    Negado
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+
+                        <td colspan="3" class="text-center">
+                           Nenhum acesso registrado até o momento.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

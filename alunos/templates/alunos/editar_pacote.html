@@ -1,0 +1,130 @@
+{% extends 'alunos/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h4 class="mb-0 fw-bold">
+                        Editar Pacote
+                    </h4>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Aluno
+                            </label>
+
+                            <select
+                                name="aluno"
+                                class="form-select"
+                                required>
+
+                                {% for aluno in alunos %}
+
+                                <option value="{{ aluno.id }}"
+                                    {% if aluno.id == pacote.aluno.id %}selected{% endif %}>
+
+                                    {{ aluno.nome }}
+
+                                </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Total de acessos
+                            </label>
+
+                            <input
+                                type="number"
+                                name="total_acessos"
+                                class="form-control"
+                                value="{{ pacote.total_acessos }}"
+                                min="1"
+                                required>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Acessos restantes
+                            </label>
+
+                            <input
+                                type="number"
+                                name="acessos_restantes"
+                                class="form-control"
+                                value="{{ pacote.acessos_restantes }}"
+                                min="0"
+                                required>
+
+                        </div>
+
+                        <div class="form-check mb-4">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="ativo"
+                                id="ativo"
+                                {% if pacote.ativo %}checked{% endif %}>
+
+                            <label class="form-check-label" for="ativo">
+                                Pacote ativo
+                            </label>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+
+                            <i class="bi bi-check-circle"></i>
+                            Salvar Alterações
+
+                        </button>
+
+                        <a
+                            href="{% url 'lista_pacotes' %}"
+                            class="btn btn-secondary">
+
+                            <i class="bi bi-arrow-left"></i>
+                            Voltar
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

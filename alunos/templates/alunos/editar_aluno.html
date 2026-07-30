@@ -1,0 +1,85 @@
+{% extends 'alunos/base.html' %}
+
+{% block content %}
+
+<h2 class="mb-4 fw-bold">
+    Editar Aluno
+</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Nome
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            name="nome"
+            value="{{ aluno.nome }}"
+            required>
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            CPF
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            name="cpf"
+            value="{{ aluno.cpf }}"
+            required>
+
+    </div>
+
+    <div class="mb-3">
+
+        <label class="form-label">
+            Telefone
+        </label>
+
+        <input
+            type="text"
+            class="form-control"
+            name="telefone"
+            value="{{ aluno.telefone }}"
+            required>
+
+    </div>
+
+    <div class="mb-4">
+
+        <label class="form-label">
+            E-mail
+        </label>
+
+        <input
+            type="email"
+            class="form-control"
+            name="email"
+            value="{{ aluno.email }}"
+            required>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-check-circle"></i>
+        Salvar Alterações
+    </button>
+
+    <a href="{% url 'lista_alunos' %}" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i>
+        Voltar
+    </a>
+
+</form>
+
+{% endblock %}

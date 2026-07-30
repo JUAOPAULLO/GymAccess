@@ -1,0 +1,150 @@
+{% extends 'alunos/base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4 fw-bold">
+        Histórico de Acessos
+    </h2>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Data/Hora</th>
+                    <th>Aluno</th>
+                    <th>Pacote</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for registro in page_obj %}
+
+                <tr>
+
+                    <td>
+                        {{ registro.data_hora|date:"d/m/Y H:i" }}
+                    </td>
+
+                    <td>
+                        {{ registro.aluno.nome }}
+                    </td>
+
+                    <td>
+
+                        <strong>
+                            {{ registro.pacote.acessos_restantes }}/{{ registro.pacote.total_acessos }}
+                        </strong>
+
+                        acessos
+
+                    </td>
+
+                    <td>
+
+                        {% if registro.autorizado %}
+
+                            <span class="badge bg-success">
+                                Entrada liberada
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge bg-danger">
+                                Entrada negada
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="4" class="text-center">
+                        Nenhum registro encontrado até o momento.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <nav class="mt-4">
+
+        <ul class="pagination justify-content-center">
+
+            {% if page_obj.has_previous %}
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                    Anterior
+                </a>
+
+            </li>
+
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+
+                {% if page_obj.number == num %}
+
+                    <li class="page-item active">
+
+                        <span class="page-link">
+                            {{ num }}
+                        </span>
+
+                    </li>
+
+                {% else %}
+
+                    <li class="page-item">
+
+                        <a class="page-link" href="?page={{ num }}">
+                            {{ num }}
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+
+            <li class="page-item">
+
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                    Próxima
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
+
+</div>
+
+{% endblock %}
