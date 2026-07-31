@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.utils import timezone
+import qrcode
+from io import BytesIO
+from django.http import HttpResponse
 
 from .models import (
     Aluno,
@@ -414,3 +417,22 @@ def lista_registros(request):
             "page_obj": page_obj,
         }
     )
+
+def exibir_imagem_qrcode(request, token):
+    qr = get_object_or_404(QRCodeAcesso, token=token)
+
+    qr_code = qrcode.QRCode(
+        version=1,
+        box_size=10,
+        border=4,
+    )
+
+    qr_code.add_data(str(qr.token))
+    qr_code.make(fit=True)
+
+    img = qr_code.make_image(fill_color="black", back_color="white")
+
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+
+    return HttpResponse(buffer.getvalue(), content_type="image/png")

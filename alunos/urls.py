@@ -15,4 +15,10 @@ urlpatterns = [
     path('qrcode/gerar/<int:pacote_id>/',views.gerar_qrcode,name='gerar_qrcode'),
     path('qrcode/validar/<uuid:token>/',views.validar_qrcode,name='validar_qrcode'),
     path('registros/',views.lista_registros,name='lista_registros'),
+    path(
+    "qrcode/imagem/<uuid:token>/",
+    views.exibir_imagem_qrcode,
+    name="imagem_qrcode",
+),
+
 ]
