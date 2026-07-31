@@ -1,28 +1,59 @@
-# Ambiente virtual
+# ==========================
+# Ambiente Virtual
+# ==========================
 venv/
+env/
+.venv/
 
+# ==========================
 # Cache do Python
+# ==========================
 __pycache__/
 *.py[cod]
+*.pyc
+*.pyo
 
-# Banco de dados
+# ==========================
+# Banco de Dados
+# ==========================
 db.sqlite3
 
-# Arquivos de mídia
+# ==========================
+# Arquivos de Mídia
+# ==========================
 media/
 
-# Arquivos estáticos coletados
+# ==========================
+# Arquivos Estáticos Gerados
+# ==========================
 staticfiles/
 
-# Arquivos do VS Code
+# ==========================
+# Configurações do VS Code
+# ==========================
 .vscode/
+.history/
 
-# Variáveis de ambiente
+# ==========================
+# Variáveis de Ambiente
+# ==========================
 .env
+.python-version
 
+# ==========================
 # Logs
+# ==========================
 *.log
 
-# Arquivos do sistema
+# ==========================
+# Build e Distribuição
+# ==========================
+build/
+dist/
+*.egg-info/
+
+# ==========================
+# Arquivos do Sistema
+# ==========================
 .DS_Store
 Thumbs.db
