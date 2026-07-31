@@ -127,7 +127,7 @@ Este projeto foi desenvolvido para fins de estudo e construção de portfólio, 
 João Paulo Peixoto Bezerra
 
 LinkedIn:
-(em breve)
+https://www.linkedin.com/in/jo%C3%A3o-paulo-peixoto-dev/
 
 GitHub:
-(em breve)
+https://github.com/JUAOPAULLO
