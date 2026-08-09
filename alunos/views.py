@@ -430,9 +430,16 @@ def exibir_imagem_qrcode(request, token):
     qr_code.add_data(str(qr.token))
     qr_code.make(fit=True)
 
-    img = qr_code.make_image(fill_color="black", back_color="white")
+    img = qr_code.make_image(
+        fill_color="black",
+        back_color="white"
+    )
 
     buffer = BytesIO()
     img.save(buffer, format="PNG")
+    buffer.seek(0)
 
-    return HttpResponse(buffer.getvalue(), content_type="image/png")
+    return HttpResponse(
+        buffer.getvalue(),
+        content_type="image/png"
+    )
