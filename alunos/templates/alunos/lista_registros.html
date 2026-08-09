@@ -2,28 +2,43 @@
 
 {% block content %}
 
-<div class="container mt-4">
+<div class="container-fluid px-0">
 
     <h2 class="mb-4 fw-bold">
         Histórico de Acessos
     </h2>
 
+
+    <!-- TABELA -->
+
     <div class="table-responsive">
 
-        <table class="table table-hover align-middle">
+        <table class="table table-hover align-middle mb-0">
 
             <thead class="table-dark">
 
                 <tr>
 
-                    <th>Data/Hora</th>
-                    <th>Aluno</th>
-                    <th>Pacote</th>
-                    <th>Status</th>
+                    <th>
+                        Data/Hora
+                    </th>
+
+                    <th>
+                        Aluno
+                    </th>
+
+                    <th>
+                        Pacote
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
 
                 </tr>
 
             </thead>
+
 
             <tbody>
 
@@ -31,36 +46,81 @@
 
                 <tr>
 
-                    <td>
-                        {{ registro.data_hora|date:"d/m/Y H:i" }}
+                    <!-- DATA/HORA -->
+
+                    <td class="text-nowrap">
+
+                        <span class="d-none d-sm-inline">
+                            {{ registro.data_hora|date:"d/m/Y H:i" }}
+                        </span>
+
+                        <span class="d-sm-none">
+
+                            {{ registro.data_hora|date:"d/m/Y" }}
+
+                            <br>
+
+                            <small class="text-muted">
+                                {{ registro.data_hora|date:"H:i" }}
+                            </small>
+
+                        </span>
+
                     </td>
 
-                    <td>
-                        {{ registro.aluno.nome }}
-                    </td>
+
+                    <!-- ALUNO -->
 
                     <td>
+
+                        <strong>
+                            {{ registro.aluno.nome }}
+                        </strong>
+
+                    </td>
+
+
+                    <!-- PACOTE -->
+
+                    <td class="text-nowrap">
 
                         <strong>
                             {{ registro.pacote.acessos_restantes }}/{{ registro.pacote.total_acessos }}
                         </strong>
 
-                        acessos
+                        <span class="d-none d-sm-inline">
+                            acessos
+                        </span>
 
                     </td>
+
+
+                    <!-- STATUS -->
 
                     <td>
 
                         {% if registro.autorizado %}
 
                             <span class="badge bg-success">
-                                Entrada liberada
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                <span class="d-none d-sm-inline">
+                                    Entrada liberada
+                                </span>
+
                             </span>
 
                         {% else %}
 
                             <span class="badge bg-danger">
-                                Entrada negada
+
+                                <i class="bi bi-x-circle-fill"></i>
+
+                                <span class="d-none d-sm-inline">
+                                    Entrada negada
+                                </span>
+
                             </span>
 
                         {% endif %}
@@ -69,12 +129,19 @@
 
                 </tr>
 
+
                 {% empty %}
 
                 <tr>
 
-                    <td colspan="4" class="text-center">
+                    <td
+                        colspan="4"
+                        class="text-center py-4">
+
+                        <i class="bi bi-clock-history fs-3 d-block mb-2"></i>
+
                         Nenhum registro encontrado até o momento.
+
                     </td>
 
                 </tr>
@@ -87,54 +154,75 @@
 
     </div>
 
-    <nav class="mt-4">
 
-        <ul class="pagination justify-content-center">
+    <!-- PAGINAÇÃO -->
+
+    {% if page_obj.paginator.num_pages > 1 %}
+
+    <nav
+        class="mt-4"
+        aria-label="Navegação de páginas">
+
+        <ul class="pagination justify-content-center flex-wrap">
 
             {% if page_obj.has_previous %}
 
             <li class="page-item">
 
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                <a
+                    class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}">
+
                     Anterior
+
                 </a>
 
             </li>
 
             {% endif %}
 
+
             {% for num in page_obj.paginator.page_range %}
 
                 {% if page_obj.number == num %}
 
-                    <li class="page-item active">
+                <li class="page-item active">
 
-                        <span class="page-link">
-                            {{ num }}
-                        </span>
+                    <span class="page-link">
+                        {{ num }}
+                    </span>
 
-                    </li>
+                </li>
 
                 {% else %}
 
-                    <li class="page-item">
+                <li class="page-item">
 
-                        <a class="page-link" href="?page={{ num }}">
-                            {{ num }}
-                        </a>
+                    <a
+                        class="page-link"
+                        href="?page={{ num }}">
 
-                    </li>
+                        {{ num }}
+
+                    </a>
+
+                </li>
 
                 {% endif %}
 
             {% endfor %}
 
+
             {% if page_obj.has_next %}
 
             <li class="page-item">
 
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                <a
+                    class="page-link"
+                    href="?page={{ page_obj.next_page_number }}">
+
                     Próxima
+
                 </a>
 
             </li>
@@ -144,6 +232,8 @@
         </ul>
 
     </nav>
+
+    {% endif %}
 
 </div>
 

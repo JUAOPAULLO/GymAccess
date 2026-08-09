@@ -2,71 +2,102 @@
 
 {% block content %}
 
-<div class="container mt-4">
+<div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
 
-    <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
 
-        <div class="card-header bg-primary text-white">
+        <h3 class="mb-0 fw-bold text-center">
 
-            <h3 class="mb-0 fw-bold">
+            <i class="bi bi-shield-check"></i>
+            Validação do QR Code
 
-                <i class="bi bi-shield-check"></i>
-                Validação do QR Code
+        </h3>
 
-            </h3>
+    </div>
 
-        </div>
 
-        <div class="card-body text-center p-4">
+    <div class="card-body text-center p-3 p-md-4">
 
-            <h4 class="fw-bold">
-                {{ qrcode.aluno.nome }}
-            </h4>
+        <!-- ALUNO -->
 
-            <p class="mb-4">
+        <h4 class="fw-bold mb-2">
+            {{ qrcode.aluno.nome }}
+        </h4>
 
-                Pacote:
-                <strong>{{ qrcode.pacote.acessos_restantes }}/{{ qrcode.pacote.total_acessos }}</strong>
-                acessos restantes
 
-            </p>
+        <!-- PACOTE -->
 
-            <img
-                src="{{ qrcode.imagem.url }}"
-                class="img-fluid mb-4"
-                style="max-width:300px;"
-                alt="QR Code">
+        <p class="mb-4">
 
-            <hr>
+            Pacote:
 
-            {% if sucesso %}
+            <strong>
+                {{ qrcode.pacote.acessos_restantes }}/{{ qrcode.pacote.total_acessos }}
+            </strong>
 
-                <div class="alert alert-success">
+            acessos restantes
 
-                    <i class="bi bi-check-circle-fill"></i>
-                    {{ mensagem }}
+        </p>
 
-                </div>
 
-            {% else %}
+        <!-- QR CODE -->
 
-                <div class="alert alert-danger">
+        <div class="d-flex justify-content-center mb-4">
 
-                    <i class="bi bi-x-circle-fill"></i>
-                    {{ mensagem }}
+            <div
+                class="p-2 bg-white border rounded"
+                style="width: min(300px, 80vw);">
 
-                </div>
+                <img
+                    src="{{ qrcode.imagem.url }}"
+                    class="img-fluid d-block mx-auto"
+                    style="width: 100%; height: auto;"
+                    alt="QR Code">
 
-            {% endif %}
-
-            <a href="{% url 'lista_pacotes' %}" class="btn btn-primary mt-3">
-
-                <i class="bi bi-arrow-left"></i>
-                Voltar
-
-            </a>
+            </div>
 
         </div>
+
+
+        <hr>
+
+
+        <!-- RESULTADO -->
+
+        {% if sucesso %}
+
+            <div class="alert alert-success mb-3">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+                {{ mensagem }}
+
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-danger mb-3">
+
+                <i class="bi bi-x-circle-fill"></i>
+
+                {{ mensagem }}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- VOLTAR -->
+
+        <a
+            href="{% url 'lista_pacotes' %}"
+            class="btn btn-primary mt-2">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Voltar
+
+        </a>
 
     </div>
 

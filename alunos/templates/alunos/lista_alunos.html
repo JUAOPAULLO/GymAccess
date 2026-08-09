@@ -2,96 +2,203 @@
 
 {% block content %}
 
-<h2 class="mb-4 fw-bold">
-    Lista de Alunos
-</h2>
+<div class="container-fluid px-0">
 
-<div class="table-responsive">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <table class="table table-hover align-middle">
+        <h2 class="mb-0 fw-bold">
+            Lista de Alunos
+        </h2>
 
-        <thead class="table-dark">
+        <a
+            href="{% url 'cadastrar_aluno' %}"
+            class="btn btn-success">
 
-            <tr>
+            <i class="bi bi-person-plus"></i>
 
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <th class="text-center">Ações</th>
+            <span class="d-none d-sm-inline">
+                Novo Aluno
+            </span>
 
-            </tr>
+        </a>
 
-        </thead>
+    </div>
 
-        <tbody>
 
-            {% for aluno in page_obj %}
+    <!-- TABELA -->
 
-            <tr>
+    <div class="table-responsive">
 
-                <td>{{ aluno.nome }}</td>
-                <td>{{ aluno.cpf }}</td>
-                <td>{{ aluno.telefone }}</td>
-                <td>{{ aluno.email }}</td>
+        <table class="table table-hover align-middle mb-0">
 
-                <td class="text-center">
+            <thead class="table-dark">
 
-                    <div class="d-flex justify-content-center gap-2">
+                <tr>
 
-                        <a href="{% url 'editar_aluno' aluno.id %}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-pencil-square"></i>
-                            Editar
-                        </a>
+                    <th>
+                        Nome
+                    </th>
 
-                        <a href="{% url 'excluir_aluno' aluno.id %}" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash"></i>
-                            Excluir
-                        </a>
+                    <th class="d-none d-md-table-cell">
+                        CPF
+                    </th>
 
-                    </div>
+                    <th class="d-none d-md-table-cell">
+                        Telefone
+                    </th>
 
-                </td>
+                    <th class="d-none d-md-table-cell">
+                        E-mail
+                    </th>
 
-            </tr>
+                    <th class="text-center">
+                        Ações
+                    </th>
 
-            {% empty %}
+                </tr>
 
-            <tr>
+            </thead>
 
-                <td colspan="5" class="text-center">
-                    Nenhum aluno cadastrado até o momento.
-                </td>
 
-            </tr>
+            <tbody>
 
-            {% endfor %}
+                {% for aluno in page_obj %}
 
-        </tbody>
+                <tr>
 
-    </table>
+                    <!-- NOME -->
 
-</div>
+                    <td>
 
-<nav class="mt-4">
+                        <div class="fw-semibold">
+                            {{ aluno.nome }}
+                        </div>
 
-    <ul class="pagination justify-content-center">
+                    </td>
 
-        {% if page_obj.has_previous %}
 
-        <li class="page-item">
+                    <!-- CPF -->
 
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
-                Anterior
-            </a>
+                    <td class="d-none d-md-table-cell text-nowrap">
 
-        </li>
+                        {{ aluno.cpf }}
 
-        {% endif %}
+                    </td>
 
-        {% for num in page_obj.paginator.page_range %}
 
-            {% if page_obj.number == num %}
+                    <!-- TELEFONE -->
+
+                    <td class="d-none d-md-table-cell text-nowrap">
+
+                        {{ aluno.telefone }}
+
+                    </td>
+
+
+                    <!-- E-MAIL -->
+
+                    <td class="d-none d-md-table-cell">
+
+                        {{ aluno.email }}
+
+                    </td>
+
+
+                    <!-- AÇÕES -->
+
+                    <td class="text-center">
+
+                        <div class="d-flex justify-content-center gap-1">
+
+                            <a
+                                href="{% url 'editar_aluno' aluno.id %}"
+                                class="btn btn-warning btn-sm"
+                                title="Editar aluno">
+
+                                <i class="bi bi-pencil-square"></i>
+
+                                <span class="d-none d-sm-inline">
+                                    Editar
+                                </span>
+
+                            </a>
+
+
+                            <a
+                                href="{% url 'excluir_aluno' aluno.id %}"
+                                class="btn btn-danger btn-sm"
+                                title="Excluir aluno">
+
+                                <i class="bi bi-trash"></i>
+
+                                <span class="d-none d-sm-inline">
+                                    Excluir
+                                </span>
+
+                            </a>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="text-center py-4">
+
+                        <i class="bi bi-people fs-3 d-block mb-2"></i>
+
+                        Nenhum aluno cadastrado até o momento.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- PAGINAÇÃO -->
+
+    {% if page_obj.paginator.num_pages > 1 %}
+
+    <nav
+        aria-label="Navegação de páginas"
+        class="mt-4">
+
+        <ul class="pagination justify-content-center flex-wrap">
+
+            {% if page_obj.has_previous %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="?page={{ page_obj.previous_page_number }}">
+
+                    Anterior
+
+                </a>
+
+            </li>
+
+            {% endif %}
+
+
+            {% for num in page_obj.paginator.page_range %}
+
+                {% if page_obj.number == num %}
 
                 <li class="page-item active">
 
@@ -101,34 +208,47 @@
 
                 </li>
 
-            {% else %}
+                {% else %}
 
                 <li class="page-item">
 
-                    <a class="page-link" href="?page={{ num }}">
+                    <a
+                        class="page-link"
+                        href="?page={{ num }}">
+
                         {{ num }}
+
                     </a>
 
                 </li>
 
+                {% endif %}
+
+            {% endfor %}
+
+
+            {% if page_obj.has_next %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="?page={{ page_obj.next_page_number }}">
+
+                    Próxima
+
+                </a>
+
+            </li>
+
             {% endif %}
 
-        {% endfor %}
+        </ul>
 
-        {% if page_obj.has_next %}
+    </nav>
 
-        <li class="page-item">
+    {% endif %}
 
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
-                Próxima
-            </a>
-
-        </li>
-
-        {% endif %}
-
-    </ul>
-
-</nav>
+</div>
 
 {% endblock %}

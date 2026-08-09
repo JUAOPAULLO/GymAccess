@@ -2,58 +2,87 @@
 
 {% block content %}
 
-<div class="container mt-4">
+<div class="card shadow-sm border-0 mx-auto" style="max-width: 600px;">
 
-    <div class="card shadow-sm border-0">
+    <div class="card-header bg-success text-white">
 
-        <div class="card-header bg-success text-white">
+        <h3 class="mb-0 fw-bold text-center">
 
-            <h3 class="mb-0 fw-bold">
-                <i class="bi bi-qr-code"></i>
-                QR Code Gerado
-            </h3>
+            <i class="bi bi-qr-code"></i>
+            QR Code Gerado
+
+        </h3>
+
+    </div>
+
+
+    <div class="card-body text-center p-3 p-md-4">
+
+        <!-- ALUNO -->
+
+        <h4 class="fw-bold mb-2">
+            {{ qrcode.aluno.nome }}
+        </h4>
+
+
+        <!-- PACOTE -->
+
+        <p class="mb-4">
+
+            Pacote:
+
+            <strong>
+                {{ qrcode.pacote.acessos_restantes }}/{{ qrcode.pacote.total_acessos }}
+            </strong>
+
+            acessos restantes
+
+        </p>
+
+
+        <!-- QR CODE -->
+
+        <div class="d-flex justify-content-center mb-4">
+
+            <div
+                class="p-2 bg-white border rounded"
+                style="width: min(300px, 80vw);">
+
+                <img
+                    src="{% url 'imagem_qrcode' qrcode.token %}"
+                    class="img-fluid d-block mx-auto"
+                    style="width: 100%; height: auto;"
+                    alt="QR Code">
+
+            </div>
 
         </div>
 
-        <div class="card-body text-center p-4">
 
-            <h4 class="fw-bold">
-                {{ qrcode.aluno.nome }}
-            </h4>
+        <!-- BOTÕES -->
 
-            <p class="mb-4">
-                Pacote:
-                <strong>{{ qrcode.pacote.acessos_restantes }}/{{ qrcode.pacote.total_acessos }}</strong>
-                acessos restantes
-            </p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
 
-            <img
-                src="{% url 'imagem_qrcode' qrcode.token %}"
-                class="img-fluid mb-4"
-                style="max-width:300px;"
-                alt="QR Code">
+            <a
+                href="{% url 'validar_qrcode' qrcode.token %}"
+                class="btn btn-success">
 
-            <div class="d-flex justify-content-center gap-2">
+                <i class="bi bi-check-circle"></i>
 
-                <a
-                    href="{% url 'validar_qrcode' qrcode.token %}"
-                    class="btn btn-success">
+                Validar QR Code
 
-                    <i class="bi bi-check-circle"></i>
-                    Validar QR Code
+            </a>
 
-                </a>
 
-                <a
-                    href="{% url 'lista_pacotes' %}"
-                    class="btn btn-primary">
+            <a
+                href="{% url 'lista_pacotes' %}"
+                class="btn btn-primary">
 
-                    <i class="bi bi-arrow-left"></i>
-                    Voltar
+                <i class="bi bi-arrow-left"></i>
 
-                </a>
+                Voltar
 
-            </div>
+            </a>
 
         </div>
 

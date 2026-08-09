@@ -1,34 +1,46 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-dark bg-dark">
 
     <div class="container-fluid">
 
-        <a class="navbar-brand fw-bold" href="{% url 'home' %}">
 
-            <i class="bi bi-shield-check"></i>
+        <!-- LOGO -->
+
+        <a
+            class="navbar-brand fw-bold"
+            href="{% url 'home' %}">
+
+            <i class="bi bi-shield-check me-1"></i>
             GymAccess
 
         </a>
 
+
+        <!-- BOTÃO MOBILE -->
+
         <button
-            class="navbar-toggler"
+            class="navbar-toggler d-md-none"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarMenu"
-            aria-controls="navbarMenu"
-            aria-expanded="false"
-            aria-label="Alternar navegação">
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mobileSidebar"
+            aria-controls="mobileSidebar"
+            aria-label="Abrir menu">
 
             <span class="navbar-toggler-icon"></span>
 
         </button>
 
-        <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
 
-            <ul class="navbar-nav">
+        <!-- MENU SUPERIOR DESKTOP -->
+
+        <div class="d-none d-md-block">
+
+            <ul class="navbar-nav flex-row gap-3">
 
                 <li class="nav-item">
 
-                    <a class="nav-link" href="{% url 'home' %}">
+                    <a
+                        class="nav-link"
+                        href="{% url 'home' %}">
 
                         <i class="bi bi-speedometer2"></i>
                         Dashboard
@@ -37,9 +49,12 @@
 
                 </li>
 
+
                 <li class="nav-item">
 
-                    <a class="nav-link" href="{% url 'lista_alunos' %}">
+                    <a
+                        class="nav-link"
+                        href="{% url 'lista_alunos' %}">
 
                         <i class="bi bi-people"></i>
                         Alunos
@@ -48,9 +63,12 @@
 
                 </li>
 
+
                 <li class="nav-item">
 
-                    <a class="nav-link" href="{% url 'cadastrar_aluno' %}">
+                    <a
+                        class="nav-link"
+                        href="{% url 'cadastrar_aluno' %}">
 
                         <i class="bi bi-person-plus"></i>
                         Novo Aluno
